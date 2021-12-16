@@ -1,5 +1,5 @@
 <?php
-require 'rsc/autoload.php';
+require 'rsc/requires.php';
 require 'router/router.class.php';
 require 'controllers/app.class.php';
 
