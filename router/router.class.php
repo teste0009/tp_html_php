@@ -1,4 +1,5 @@
 <?php
+namespace Router;
 
 class Router  {
 	public $base_folder = "/CFP18/tp_html_php";

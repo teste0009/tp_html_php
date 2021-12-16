@@ -1,4 +1,6 @@
 <?php
+namespace Controllers;
+use \Router\Router;
 
 class App extends Router {
 
@@ -20,16 +22,19 @@ class App extends Router {
 		}
 	}
 
+	public function response() {
+		if ($this->is_route_registered($this->request_route)) { // http_response_code(200);
+			header('HTTP/1.1 200 OK');
+			echo(__DIR__.'<br/>');
+			require_once(__DIR__.'/'.$this->_routes_registered[$this->request_route].'.class.php');
+		}
+		else {
+			header('HTTP/1.1 404 Not Found');
+			die('404 - Not Found');
+		}
+
+	}
+
 }
 
-$app = new App();
-
-if ($app->is_route_registered($app->request_route)) { // http_response_code(200);
-	header('HTTP/1.1 200 OK');
-	require_once('controllers/'.$app->_routes_registered[$app->request_route].'.class.php');
-}
-else {
-	header('HTTP/1.1 404 Not Found');
-	die('404 - Not Found');
-}
 ?>

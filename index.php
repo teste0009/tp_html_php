@@ -1,5 +1,10 @@
 <?php
-require_once 'lib/php_aux.php';
-require_once 'router/router.class.php';
-include_once 'controllers/app.class.php';
+require 'rsc/autoload.php';
+require 'router/router.class.php';
+require 'controllers/app.class.php';
+
+use \Controllers\App;
+
+$app = new App();
+$app->response();
 ?>
