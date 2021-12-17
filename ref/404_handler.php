@@ -3,7 +3,7 @@ require_once '../rsc/autoload.php';
 require_once '../router/router.class.php';
 require_once '../controllers/app.class.php';
 
-use App;
+use Controllers\App;
 
 $app = new App();
 $app->response();

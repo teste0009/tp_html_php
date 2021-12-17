@@ -47,7 +47,7 @@ class Router  {
 
   public function register_routes() {
     $this->register_route('/', 'index');
-    $this->register_route('/lista_empleados', 'lista_empleados');
+    $this->register_route('/empleados', 'empleados');
   }
 
 }
