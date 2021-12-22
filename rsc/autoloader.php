@@ -24,6 +24,8 @@ function loadClass($className) {
     echo 'Class "'.$className.'" does not exist.';
   }
 }
+
+
 spl_autoload_register('loadClass'); // echo 'Registers the autoloader.<br/>';
 
 ?>

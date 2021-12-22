@@ -2,27 +2,41 @@
 namespace Controllers;
 use \Models\Db;
 
-class User extends Db {
+class User {
   private string $nombre = "";
   private string $email = "";
   private bool $bIsLogged = false;
+  private Db $db;
 
   function __construct() {
-    parent::__construct();
-    echo 'Class User.<br/>';
+    $this->db = new Db();
   }
 
-  function getNombre(): string {
+  public function getNombre(): string {
     return $this->nombre;
   }
 
-  function getEmail(): string {
+  public function getEmail(): string {
     return $this->email;
   }
 
-  function isLogged(): bool {
+	public function setNombre(string $nombre) {
+		$this->nombre = $nombre;
+	}
+
+  public function setEmail(string $email) {
+		$this->email = $email;
+	}
+
+  public function isLogged(): bool {
     return $this->bIsLogged;
   }
+
+  public function getLogin(string $email, string $password): array {
+    return $this->db->getFetchOne('get_login', [$email, $password]);
+  }
+
+
 }
 
 ?>
