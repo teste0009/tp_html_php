@@ -20,10 +20,19 @@ class App extends Router {
 	function __construct() {
 		parent::__construct();
 		$this->user = new User();
+		$this->controller();
+	}
+
+	private function chkPost() {
+		show_between_pre_tag($_POST, "\$_POST");
+	}
+
+	public function login() {
+		;
 	}
 
 	private function controller() {
-		;
+		$this->chkPost();
 	}
 
 	public function response() {
@@ -42,10 +51,6 @@ class App extends Router {
 			die('404 - Not Found');
 		}
 
-	}
-
-	public function login() {
-		;
 	}
 
 }
