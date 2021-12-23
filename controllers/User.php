@@ -10,6 +10,20 @@ class User {
 
   function __construct() {
     $this->db = new Db();
+    $this->controller();
+  }
+
+  private function getSession() {
+    // show_between_pre_tag($_SESSION, "\$_SESSION");
+    if(isset($_SESSION['user'])) {
+      if( ! empty($_SESSION['user']['name'])) {
+        $this->setNombre($_SESSION['user']['name']);
+        if( ! empty($_SESSION['user']['email'])) {
+          $this->setEmail($_SESSION['user']['email']);
+          $this->bIsLogged = true;
+        }
+      }
+    }
   }
 
   public function getNombre(): string {
@@ -36,7 +50,9 @@ class User {
     return $this->db->getFetchOne('get_login', [$email, $password]);
   }
 
-
+  private function controller() {
+    $this->getSession();
+  }
 }
 
 ?>

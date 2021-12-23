@@ -2,6 +2,7 @@
 namespace Router;
 
 class Router  {
+  public $http_host = "";
 	public $base_folder = "/CFP18/tp_html_php";
 	public $index_script = "/index.php";
 
@@ -28,6 +29,7 @@ class Router  {
 
 		// echo("[".$this->request_route."]");
 
+    $this->http_host = 'http://'.$_SERVER['HTTP_HOST'];
     $this->register_routes();
   }
 
@@ -48,6 +50,9 @@ class Router  {
   public function register_routes() {
     $this->register_route('/', 'index');
     $this->register_route('/empleados', 'empleados');
+    $this->register_route('/evaluaciones', 'evaluaciones');
+    $this->register_route('/rotacion', 'rotacion');
+    $this->register_route('/logout', 'logout');
   }
 
 }
