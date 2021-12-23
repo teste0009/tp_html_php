@@ -1,9 +1,9 @@
 <?php
-show_between_pre_tag($_SERVER, "\$_SERVER");
+// show_between_pre_tag($_SERVER, "\$_SERVER");
 ?>
 
   <div class="login">
-    <h2>Login</h2>
+    <h2><?php echo $app->user->getLoginMessage(); ?></h2>
     <form action="" method="post">
       <input type="hidden" name="action" value="login">
       <label for="in_email">Email</label>

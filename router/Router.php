@@ -29,7 +29,7 @@ class Router  {
 
 		// echo("[".$this->request_route."]");
 
-    $this->http_host = 'http://'.$_SERVER['HTTP_HOST'];
+    $this->http_host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'];
     $this->register_routes();
   }
 

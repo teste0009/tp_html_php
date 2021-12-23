@@ -24,11 +24,10 @@ class App extends Router {
 	}
 
 	private function chkPost() {
-		show_between_pre_tag($_POST, "\$_POST");
-	}
-
-	public function login() {
-		;
+		// show_between_pre_tag($_POST, "\$_POST");
+		if ( ! empty($_POST['action']) && $_POST['action'] == 'login') {
+			$this->user->login($_POST['email'], $_POST['password']);
+		}
 	}
 
 	private function controller() {
@@ -38,12 +37,13 @@ class App extends Router {
 	public function response() {
 		if ($this->is_route_registered($this->request_route)) { // http_response_code(200);
 			header('HTTP/1.1 200 OK'); // echo(__DIR__.'<br/>');
-			if ( ! $this->user->isLogged) {
+			if ( ! $this->user->isLogged()) {
 				if ($this->request_route != '/') {
 					$this->request_route = '/';
 					header('Location: '.$this->base_folder.'/');
 				}
 			}
+			/* * * * LOAD CONTROLLER * * * */
 			require_once(__DIR__.'/'.$this->_routes_registered[$this->request_route].'.php');
 		}
 		else {
