@@ -11,7 +11,7 @@ class App extends Router {
 	public string $content_html = '';
 	public array $_nav_options = [
 		['name' => 'Inicio',                       'route' => '/'],
-		['name' => 'Empleados',                    'route' => '/empleados'],
+		['name' => 'Empleados',                    'route' => '/empleados_lista'],
 		['name' => 'Evaluaciones',                 'route' => '/evaluaciones'],
 		['name' => 'Rotaci&oacute;n del Personal', 'route' => '/rotacion'],
 		['name' => 'Logout',                       'route' => '/logout'],

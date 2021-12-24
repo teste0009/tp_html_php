@@ -9,9 +9,6 @@ class Router  {
   public $request_route = "";
   public $_routes_registered = [];
 
-  /**
-   *
-   */
   function __construct() {
 		// show_between_pre_tag($_SERVER, "\$_SERVER");
 
@@ -49,7 +46,7 @@ class Router  {
 
   public function register_routes() {
     $this->register_route('/', 'index');
-    $this->register_route('/empleados', 'empleados');
+    $this->register_route('/empleados_lista', 'empleados_lista');
     $this->register_route('/evaluaciones', 'evaluaciones');
     $this->register_route('/rotacion', 'rotacion');
     $this->register_route('/logout', 'logout');

@@ -18,6 +18,21 @@ class Db {
                       // SELECT AES_DECRYPT(0x1b287d7cfa9bad74fe30cbbc5dba2d05, UNHEX(SHA2('My secret passphrase',512))) => admin
                       // SELECT HEX(0x1b287d7cfa9bad74fe30cbbc5dba2d05) => 1B287D7CFA9BAD74FE30CBBC5DBA2D05
                       // SELECT UNHEX('1B287D7CFA9BAD74FE30CBBC5DBA2D05') => 0x1b287d7cfa9bad74fe30cbbc5dba2d05
+    'total_empleados' => ["SELECT cid.nombre AS ciudad_d, de.area, de.descripcion departamento, pu.nombre AS puesto,
+                            st.descripcion AS estado, pe.desde, pe.hasta, em.nro_legajo, CONCAT(em.apellidos, ', ', em.nombres) AS nombre,
+                            em.dni, cie.nombre AS ciudad_e
+
+                            FROM empleados em
+
+                            INNER JOIN ciudades cie ON (cie.id = em.id_ciudad)
+                            LEFT JOIN puestos_empleados pe ON (pe.nro_legajo = em.nro_legajo)
+                            LEFT JOIN departamentos de ON (de.codigo = pe.cod_departamento)
+                            LEFT JOIN puestos pu ON (pu.id = pe.id_puesto)
+                            LEFT JOIN estados st ON (st.codigo = pe.cod_estado)
+                            LEFT JOIN ciudades cid ON (cid.id = de.id_ciudad)
+
+                            WHERE ( (st.codigo = 100) OR (st.codigo >= 500) )
+                            ORDER BY area, departamento, desde DESC;", ''],
 ];
 
   private $mysqli;
