@@ -3,10 +3,10 @@
   if ( ! function_exists('show_between_pre_tag')) {
   /**
   * Show between PRE tags
-  * Show an array between HTML PRE tags with title if this exist
+  * Show an array or string between HTML PRE tags with title if this exist
   *
   * @access public
-  * @param $value array
+  * @param $value mixed
   * @param $title string
   * @param $color string
   * @return void
