@@ -89,7 +89,7 @@ class Db {
       $query = $this->_sql[$sql_ind][0];
       $param_types = $this->_sql[$sql_ind][1];
       // preg_match('/^(.*\R*)( from .*\R*)( order by .*\R*)$/ims', $query, $_matches); show_between_pre_tag($_matches, "\$_matches");
-      $count_query = preg_replace('/^(.*\R*)( from .*\R*)( order by .*\R*)$/ims', 'SELECT COUNT(*) AS cantidad $2', $query); show_between_pre_tag($count_query, "\$_count_query");
+      $count_query = preg_replace('/^(.*\R*)( from .*\R*)( order by .*\R*)$/ims', 'SELECT COUNT(*) AS cantidad $2', $query); // show_between_pre_tag($count_query, "\$_count_query");
       $_stmt_result = $this->getStmtResult([$count_query, $param_types], $_params);
       if ($_row = $_stmt_result->fetch_assoc()) {
         $cantidad = $_row['cantidad'];
@@ -105,8 +105,12 @@ class Db {
   private function getStrQueryPaged(string $sql_ind, array $_params=[], int $page=0): string {
     $str_query_paged = "";
 
-    $count_rows = $this->getCountRows($sql_ind, $_params); echo("\$count_rows = ".$count_rows."<br/>");
-    $pages_qty = $this->getPagesQty($count_rows); echo("\$pages_qty = ".$pages_qty."<br/>"); var_dump($pages_qty); echo("<br/>");
+    $count_rows = $this->getCountRows($sql_ind, $_params); // echo("\$count_rows = ".$count_rows."<br/>");
+    $pages_qty = $this->getPagesQty($count_rows); // echo("\$pages_qty = ".$pages_qty."<br/>"); var_dump($pages_qty); echo("<br/>");
+    if ( ($page < 0) || ($page > ($pages_qty-1)) ) {
+      $page = 0;
+    }
+    $str_query_paged = $this->_sql[$sql_ind][0] . " LIMIT " . ($page * $this->getRows_per_page()) . ", " . $this->getRows_per_page();
 
     return $str_query_paged;
   }
@@ -114,8 +118,8 @@ class Db {
   public function getFetchAllPaged(string $sql_ind, array $_params=[], int $page=0): array {
     $_result = [];
     if ( ! empty($this->_sql[$sql_ind])) {
-      $str_query_paged = $this->getStrQueryPaged($sql_ind, $_params, $page); show_between_pre_tag($str_query_paged, "\$str_query_paged");
-      $_stmt_result = $this->getStmtResult($this->_sql[$sql_ind], $_params);
+      $str_query_paged = $this->getStrQueryPaged($sql_ind, $_params, $page); // show_between_pre_tag($str_query_paged, "\$str_query_paged");
+      $_stmt_result = $this->getStmtResult([$str_query_paged, $this->_sql[$sql_ind][1]], $_params);
       while ($_row = $_stmt_result->fetch_assoc()) {
         $_result[] = $_row;
       }

@@ -9,8 +9,8 @@ class User {
   private string $loginMessage = '';
   private Db $db;
 
-  function __construct() {
-    $this->db = new Db();
+  function __construct(Db &$db) {
+    $this->db = $db;
     $this->controller();
   }
 

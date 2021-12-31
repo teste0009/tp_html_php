@@ -1,10 +1,12 @@
 <?php
 namespace Controllers;
-use \Router\Router;
 use \Controllers\User;
+use \Models\Db;
+use \Router\Router;
 
 class App extends Router {
 
+	public Db $db;
 	public User $user;
 	public string $name = 'RRHH - PHP';
 	public string $title = '';
@@ -19,7 +21,8 @@ class App extends Router {
 
 	function __construct() {
 		parent::__construct();
-		$this->user = new User();
+		$this->db = new Db();
+		$this->user = new User($this->db);
 		$this->controller();
 	}
 
