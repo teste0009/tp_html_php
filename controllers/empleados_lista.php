@@ -6,7 +6,7 @@ $app->title = 'Empleados';
 $app->content_html = 'empleados_lista';
 
 $empleados = new Empleados($app->db);
-$_empleadosTotal = $empleados->getTotal();
+$_empleadosTotal = $empleados->getTotalPaged();
 
 require(__DIR__.'/../'.'views/'.'layout'.'.html.php');
 

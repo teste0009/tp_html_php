@@ -102,8 +102,8 @@ class Db {
     return (int)ceil($count_rows / $this->rows_per_page);
   }
 
-  private function getStrQueryPaged(string $sql_ind, array $_params=[], int $page=0): string {
-    $str_query_paged = "";
+  private function getQueryPaged(string $sql_ind, array $_params=[], int $page=0): array {
+    $_query_paged = [];
 
     $count_rows = $this->getCountRows($sql_ind, $_params); // echo("\$count_rows = ".$count_rows."<br/>");
     $pages_qty = $this->getPagesQty($count_rows); // echo("\$pages_qty = ".$pages_qty."<br/>"); var_dump($pages_qty); echo("<br/>");
@@ -111,17 +111,32 @@ class Db {
       $page = 0;
     }
     $str_query_paged = $this->_sql[$sql_ind][0] . " LIMIT " . ($page * $this->getRows_per_page()) . ", " . $this->getRows_per_page();
+    $_query_paged = [
+      'count_rows'    => $count_rows,
+      'rows_per_page' => $this->getRows_per_page(),
+      'pages_qty'     => $pages_qty,
+      'page'          => $page,
+      'query'         => $str_query_paged
+    ];
 
-    return $str_query_paged;
+    return $_query_paged;
   }
 
   public function getFetchAllPaged(string $sql_ind, array $_params=[], int $page=0): array {
     $_result = [];
     if ( ! empty($this->_sql[$sql_ind])) {
-      $str_query_paged = $this->getStrQueryPaged($sql_ind, $_params, $page); // show_between_pre_tag($str_query_paged, "\$str_query_paged");
-      $_stmt_result = $this->getStmtResult([$str_query_paged, $this->_sql[$sql_ind][1]], $_params);
+      $_query_paged = $this->getQueryPaged($sql_ind, $_params, $page); // show_between_pre_tag($str_query_paged, "\$str_query_paged");
+      $_result = [
+        'count_rows'    => $_query_paged['count_rows'],
+        'rows_per_page' => $_query_paged['rows_per_page'],
+        'pages_qty'     => $_query_paged['pages_qty'],
+        'page'          => $_query_paged['page'],
+      ];
+      $_stmt_result = $this->getStmtResult([$_query_paged['query'], $this->_sql[$sql_ind][1]], $_params);
+      $num_row = (int) $_result['page'] * $_result['rows_per_page'];
       while ($_row = $_stmt_result->fetch_assoc()) {
-        $_result[] = $_row;
+        $_result['_result'][$num_row] = $_row;
+        $num_row++;
       }
     }
     return $_result;
