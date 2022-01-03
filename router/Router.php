@@ -2,6 +2,7 @@
 namespace Router;
 
 class Router  {
+  private $doc_root = "";
   public $http_host = "";
 	public $base_folder = "/CFP18/tp_html_php";
 	public $index_script = "/index.php";
@@ -26,9 +27,14 @@ class Router  {
 
 		// echo("[".$this->request_route."]");
 
+    $this->doc_root = $_SERVER['DOCUMENT_ROOT'];
     $this->http_host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'];
     $this->register_routes();
   }
+
+	function getDocRoot() {
+		return $this->doc_root;
+	}
 
   public function is_route_registered($route)
   {
@@ -51,6 +57,5 @@ class Router  {
     $this->register_route('/rotacion', 'rotacion');
     $this->register_route('/logout', 'logout');
   }
-
 }
 ?>

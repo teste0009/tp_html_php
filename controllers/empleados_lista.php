@@ -8,6 +8,6 @@ $app->content_html = 'empleados_lista';
 $empleados = new Empleados($app->db);
 $_empleadosTotal = $empleados->getTotalPaged();
 
-require(__DIR__.'/../'.'views/'.'layout'.'.html.php');
+require($app->getDocRoot().$app->base_folder.'/views/'.'layout'.'.html.php');
 
 ?>
