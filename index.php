@@ -1,7 +1,5 @@
 <?php
-require 'rsc/requires.php';
-// require 'router/Router.php';
-// require 'controllers/App.php';
+require 'resources/required.php';
 
 use \Controllers\App;
 

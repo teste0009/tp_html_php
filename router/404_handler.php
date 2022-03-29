@@ -1,5 +1,5 @@
 <?php
-require '../rsc/requires.php';
+require '../resources/required.php';
 // require '../router/Router.php';
 // require '../controllers/App.php';
 
